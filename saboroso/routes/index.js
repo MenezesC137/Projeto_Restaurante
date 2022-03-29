@@ -10,7 +10,8 @@ router.get('/', function(req, res, next) {
 
     res.render('index', { 
       title: 'Restaurante Saboroso!',
-      menus: results
+      menus: results,
+      isHome: true
     });
 
   })
@@ -23,6 +24,7 @@ router.get('/contacts', function(req, res, next){
     background: 'images/img_bg_3.jpg',
     h1: 'Diga um oi!'
   });
+  
 });
 
 router.get('/menus', function(req, res, next){
