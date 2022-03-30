@@ -5,7 +5,6 @@ var reservations = require('../inc/reservations');
 var contacts = require('../inc/contacts');
 var router = express.Router();
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
   
   menus.getMenus().then(results =>{
