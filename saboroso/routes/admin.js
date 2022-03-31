@@ -31,7 +31,17 @@ router.get('/logout', function(req, res, next) {
 
 router.get('/', function(req, res, next) {
   
-    res.render('admin/index', admin.getParamns(req));
+    admin.dashboard().then(data =>{
+
+        res.render('admin/index', admin.getParamns(req, {
+            data
+        }));
+
+    }).catch(err =>{
+
+        console.error(err);
+        
+    })
 
 });
 
