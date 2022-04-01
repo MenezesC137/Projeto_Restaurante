@@ -203,15 +203,13 @@
 
 <script src="/js/moment.min.js"></script>
 <script src="/js/hcode-formsave.js"></script>
+<script src="/js/hcode-grid.js"></script>
 
 
 <script>
 
 new HcodeGrid({
-  formCreate:'#modal-create form',
-  formUpdate:'#modal-update form',
-  btnUpdate:'.btn-update',
-  btnDelete:'.btn-delete',
+
   deleteUrl:'/admin/reservations/${data.id}',
   deleteMsg:'Deseja realmente excluir a reserva de ${data.name}?' 
 

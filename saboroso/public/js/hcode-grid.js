@@ -2,15 +2,23 @@ class HcodeGrid {
 
     constructor(configs){
 
+        this.options = Object.assign({}, {
+            formCreate:'#modal-create form',
+            formUpdate:'#modal-update form',
+            btnUpdate:'.btn-update',
+            btnDelete:'.btn-delete',
+        },configs) 
 
+        this.initForms()
+        this.initButtons()
 
     }
 
     initForms(){
 
-        let formCreate = document.querySelector("#modal-create form")
+        this.formCreate = document.querySelector(this.options.formCreate)
 
-        formCreate.save().then(json =>{
+        this.formCreate.save().then(json =>{
 
             window.location.reload()
 
@@ -20,9 +28,9 @@ class HcodeGrid {
 
         })
 
-        let formUpdate = document.querySelector("#modal-update form");
+        this.formUpdate = document.querySelector(this.options.formUpdate);
 
-        formUpdate.save().then(json =>{
+        this.formUpdate.save().then(json =>{
 
             window.location.reload()
 
@@ -36,7 +44,7 @@ class HcodeGrid {
     
     initButtons(){
 
-        [...document.querySelectorAll('.btn-update')].forEach(btn =>{
+        [...document.querySelectorAll(this.options.btnUpdate)].forEach(btn =>{
 
             btn.addEventListener('click', e=>{
 
@@ -50,7 +58,7 @@ class HcodeGrid {
             
             for (let name in data) {
 
-                let input = formUpdate.querySelector(`[name=${name}]`)
+                let input = this.formUpdate.querySelector(`[name=${name}]`)
 
                 switch (name) {
 
@@ -69,7 +77,7 @@ class HcodeGrid {
             })
         });
 
-        [...document.querySelectorAll('.btn-delete')].forEach(btn =>{
+        [...document.querySelectorAll(this.options.btnDelete)].forEach(btn =>{
 
             btn.addEventListener('click', e=>{
 
@@ -81,9 +89,9 @@ class HcodeGrid {
 
             let data = JSON.parse(tr.dataset.row)
 
-            if (confirm(`Deseja realmente excluir a reserva de ${data.name}? `)){
+            if (confirm(eval('`' + this.options.deleteMsg + '`'))){
 
-                fetch(`/admin/reservations/${data.id}`, {
+                fetch(eval('`' + this.options.deleteUrl + '`'), {
                     method:'DELETE'
                 })
                     .then(response => response.json())
