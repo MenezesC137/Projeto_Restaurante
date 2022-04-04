@@ -75,16 +75,23 @@ class Pagination {
             limitPageNav = this.getTotalPages()
         }
 
-        if(this.getCurrentPage() - parseInt(limitPageNav/2) < 1){
+        if((this.getCurrentPage() - parseInt(limitPageNav/2)) < 1){
             nrstart = 1
             nrend = limitPageNav;
-        } else if((this.getCurrentPage() + parseInt(limitPageNav/1)) > this.getTotalPages){
+        } else if((this.getCurrentPage() + parseInt(limitPageNav/2)) > this.getTotalPages()){
             nrstart = this.getTotalPages() - limitPageNav
             nrend = this.getTotalPages();
         } else {
             nrstart = this.getCurrentPage() - parseInt(limitPageNav / 2)
             nrend = this.getCurrentPage() + parseInt(limitPageNav / 2)
 
+        }
+
+        if(this.getCurrentPage() > 1) {
+            links.push({
+                text: '<<',
+                href: '?' + this.getQueryString(Object.assign({}, params, {page: this.getCurrentPage() - 1 })),
+            })
         }
         
         for (let x = nrstart; x <=nrend; x++) {
@@ -95,6 +102,13 @@ class Pagination {
                 active: (x === this.getCurrentPage())
             })
 
+        }
+
+        if(this.getCurrentPage() < this.totalPages) {
+            links.push({
+                text: '>>',
+                href: '?' + this.getQueryString(Object.assign({}, params, {page: this.getCurrentPage() + 1 })),
+            })
         }
         
         return links;
