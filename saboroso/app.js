@@ -11,8 +11,6 @@ var socket = require('socket.io')
 
 var path = require('path')
 
-var indexRouter = require('./routes/index');
-var adminRouter = require('./routes/admin');
 const formidable = require('formidable');
 
 var app = express();
@@ -26,7 +24,12 @@ io.on('connection', function(socket){
 
 })
 
+var indexRouter = require('./routes/index')(io);
+var adminRouter = require('./routes/admin')(io);
+
 app.use(function (req, res, next){
+
+  req.body = {}
 
   if(req.method ===  'POST') {
 
