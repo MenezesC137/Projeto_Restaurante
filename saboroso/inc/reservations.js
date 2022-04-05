@@ -92,7 +92,7 @@ module.exports = {
                     SELECT SQL_CALC_FOUND_ROWS * 
                     FROM tb_reservations
                     ${(dtstart && dtend) ? 'WHERE date BETWEEN ? AND ?' : ''}
-                    ORDER BY name LIMIT ?, ?
+                    ORDER BY date DESC LIMIT ?, ?
                 `,
                 params
             )
